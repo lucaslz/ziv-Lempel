@@ -5,35 +5,43 @@
  */
 package basico;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+import java.util.ArrayList;
 /**
  *
  * @author nobreack
  */
 public class Escrita {
     
-    public File arquivo = new File("LempelZiv.txt");
+    public File arquivo;
     
     public void escreverNoArquivo() {
         try {
+            this.arquivo = new File("LempelZiv.txt");
             FileWriter escrever = new FileWriter(arquivo);
-            BufferedWriter bufferedEscrita = new BufferedWriter(escrever);
-            bufferedEscrita.write("Teste");
-            bufferedEscrita.newLine();
-            bufferedEscrita.write("Teste");
-            bufferedEscrita.newLine();
-            bufferedEscrita.write("Teste");
-            bufferedEscrita.newLine();
-            bufferedEscrita.write("Teste");
-            bufferedEscrita.newLine();            
+            escrever.write("Lucas Lima Teste");
+            escrever.flush();
         } catch (IOException ex) {
-            Logger.getLogger(Escrita.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Error: " + ex);
+        }
+    }
+    
+    public void criarTabelaAsciiArquivo() {
+        try {
+            this.arquivo = new File("TabelaAscii.txt");
+            FileWriter fW = new FileWriter(this.arquivo);
+            TabelaAscii tabela = new TabelaAscii();
+            ArrayList tabelaAscii = tabela.gerarTabelaAscii(254);
+            
+            for (int i = 0; i < tabelaAscii.size(); i++) {
+                String letra = (String) tabelaAscii.get(i);
+                fW.append(letra + "\r\n");
+                fW.flush();
+            }
+        } catch (IOException e) {
+            System.err.println("Error: " + e);
         }
     }
 }

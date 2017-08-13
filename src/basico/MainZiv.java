@@ -29,6 +29,6 @@ public class MainZiv {
 //        Comprimir tabela = new Comprimir();
 
         Escrita e = new Escrita();
-        e.escreverNoArquivo();
+        e.criarTabelaAsciiArquivo();
     }
 }
