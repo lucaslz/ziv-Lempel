@@ -4,32 +4,30 @@
  * and open the template in the editor.
  */
 package basico;
-import java.util.Scanner;
+
+import java.util.ArrayList;
 
 /**
  *
- * @author nobreck
+ * @author nobreack
  */
 public class LempelZiv {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        
-        //Frase a ser codificada
-        Scanner entradaFrase = new Scanner(System.in);
-        System.out.println("Digite a frase a ser codificada: ");
-        String frase = entradaFrase.nextLine();
-        
-        //Codificando a string na tabela
-        Comprimir codificarString = new Comprimir();
-        
-        //setando a string
-        codificarString.setFrase(frase);
-        
-        //Pegando o tama
-        codificarString.codificarStringNoDicionario();
-    }
     
+    public Integer quantidadeLinhas;
+    public ArrayList<String> arrayArquivoReal;
+    public Integer tamanhoTotal;
+    
+    public LempelZiv () {
+        
+    }
+ 
+    public LempelZiv (Integer quantide, ArrayList<String> linhas, Integer tamanho) {
+        this.arrayArquivoReal = linhas;
+        this.quantidadeLinhas = quantide;
+        this.tamanhoTotal = tamanho;
+    }
+
+    LempelZiv(int size, ArrayList<String> arrayArquivo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
