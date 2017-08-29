@@ -7,9 +7,7 @@ package Programa;
 
 import Compressao.Codificar;
 import TratarArquivos.LeituraArquivo;
-import Compressao.TratarCompressao;
 import TratarArquivos.EscrituraArquivo;
-import TratarArquivos.LeituraCaracterPorCaracter;
 
 /**
  * @author Lucas

@@ -55,7 +55,7 @@ public class Codificar {
     public void setArrayAIndexar(ArrayList<String> arrayAIndexar) {
         this.arrayAIndexar = arrayAIndexar;
     }
-    
+
     public void particionarListaStrings() {
         for (int i = 0; i < this.getArrayLista().size(); i++) {
             for (int j = 0; j < this.getArrayLista().get(i).length() + 1; j++) {
@@ -68,12 +68,12 @@ public class Codificar {
                     }
                     if (teste == false) {
                         this.getArrayAIndexar().add(palavra);
-                    }                    
+                    }
                 }
             }
         }
     }
-    
+
     public void escreverStringsParticionadas(EscrituraArquivo eA) {
         for (int i = 0; i < this.getArrayAIndexar().size(); i++) {
             eA.setParteString(this.getArrayAIndexar().get(i) + "|");
@@ -81,7 +81,7 @@ public class Codificar {
             eA.escreverEmArquivo();
         }
     }
-    
+
     public void indexarStrings() {
         int inicio = 0;
         for (int i = 0; i < this.getArrayLista().size(); i++) {
@@ -95,34 +95,34 @@ public class Codificar {
             }
         }
     }
-    
+
     public int verificaSeContemString(String palavra) {
-         for (int i = 0; i < this.getIndex().size(); i++) {
-             if (this.getIndex().get(i).equals(palavra)) {
-                 return i+1;
-             }
-         }
-         return -1;
+        for (int i = 0; i < this.getIndex().size(); i++) {
+            if (this.getIndex().get(i).equals(palavra)) {
+                return i + 1;
+            }
+        }
+        return -1;
     }
 
     public void codificarStrings() {
         for (int i = 0; i < this.getIndex().size(); i++) {
             int total = this.getIndex().get(i).length();
             String palavra = this.getIndex().get(i).substring(0, total - 1);
-            int retorno = verificaSeContemString(palavra);    
+            int retorno = verificaSeContemString(palavra);
             String palavraCodificada = "";
             if (retorno != -1 && palavra.length() > 1) {
-                palavraCodificada = this.getIndex().get(i).substring(total -1, total);
+                palavraCodificada = this.getIndex().get(i).substring(total - 1, total);
                 this.getCodigicacao().add(retorno + palavraCodificada);
             } else {
                 if (palavra.length() == 1) {
                     this.getCodigicacao().add(0 + palavra);
                 }
-            } 
+            }
         }
     }
-    
-        public void escreverStringsCodificadas(EscrituraArquivo eA) {
+
+    public void escreverStringsCodificadas(EscrituraArquivo eA) {
         for (int i = 0; i < this.getCodigicacao().size(); i++) {
             eA.setParteString(this.getCodigicacao().get(i) + "|");
             eA.verificaSeArquivoExiste();
