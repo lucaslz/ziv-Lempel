@@ -62,7 +62,7 @@ public class EscrituraArquivo {
 
     public int verificaSeArquivoExiste() {
         if (!this.getNomeArquivo().isEmpty()) {
-            this.setAbrirArquivo(new File(this.nomeArquivo));
+            this.setAbrirArquivo(new File(this.getNomeArquivo()));
         } else {
             return 1;
         }
@@ -89,7 +89,7 @@ public class EscrituraArquivo {
 
     public void escreverEmArquivo() {
         try {
-            this.setFr(new FileWriter(this.abrirArquivo, true));
+            this.setFr(new FileWriter(this.getAbrirArquivo(), true));
             this.setBw(new BufferedWriter(this.fr));
             this.getBw().write(this.getParteString());
             this.getBw().flush();

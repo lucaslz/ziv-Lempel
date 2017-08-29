@@ -5,6 +5,7 @@
  */
 package Compressao;
 
+import TratarArquivos.EscrituraArquivo;
 import java.util.ArrayList;
 
 /**
@@ -17,6 +18,7 @@ public class Codificar {
     public ArrayList<String> codigicacao = new ArrayList();
     public ArrayList<String> arrayLista = new ArrayList();
     public ArrayList<String> arrayAIndexar = new ArrayList();
+    public String parteString;
 
     public Codificar() {
 
@@ -56,12 +58,27 @@ public class Codificar {
     
     public void particionarListaStrings() {
         for (int i = 0; i < this.getArrayLista().size(); i++) {
-            for (int j = 0; j < this.getArrayLista().get(i).length(); j++) {
-                 String palavra = this.getArrayLista().get(i).substring(0, j);
-                 for (int k = 0; k < 10; k++) {
-                    
+            for (int j = 0; j < this.getArrayLista().get(i).length() + 1; j++) {
+                String palavra = this.getArrayLista().get(i).substring(0, j);
+                int total = this.getArrayAIndexar().size();
+                boolean teste = false;
+                if (!palavra.isEmpty()) {
+                    if (this.getArrayAIndexar().contains(palavra)) {
+                        teste = true;
+                    }
+                    if (teste == false) {
+                        this.getArrayAIndexar().add(palavra);
+                    }                    
                 }
             }
+        }
+    }
+    
+    public void escreverStringsParticionadas(EscrituraArquivo eA) {
+        for (int i = 0; i < this.getArrayAIndexar().size(); i++) {
+            eA.setParteString(this.getArrayAIndexar().get(i) + "|");
+            eA.verificaSeArquivoExiste();
+            eA.escreverEmArquivo();
         }
     }
     
@@ -102,6 +119,14 @@ public class Codificar {
                     this.getCodigicacao().add(0 + palavra);
                 }
             } 
+        }
+    }
+    
+        public void escreverStringsCodificadas(EscrituraArquivo eA) {
+        for (int i = 0; i < this.getCodigicacao().size(); i++) {
+            eA.setParteString(this.getCodigicacao().get(i) + "|");
+            eA.verificaSeArquivoExiste();
+            eA.escreverEmArquivo();
         }
     }
 }
