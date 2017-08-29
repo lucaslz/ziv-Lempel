@@ -5,6 +5,7 @@
  */
 package Programa;
 
+import Compressao.Codificar;
 import TratarArquivos.LeituraArquivo;
 import Compressao.TratarCompressao;
 import TratarArquivos.EscrituraArquivo;
@@ -20,21 +21,21 @@ public class LempelZiv {
         LeituraArquivo ler = new LeituraArquivo();
         ler.setNomeArquivo("teste.txt");
         int retorno = ler.verificaSeArquivoExiste();
-        System.out.println("Retorno da função: " + retorno);
+        System.out.println("Retorno da arquivo existe: " + retorno);
         ler.lerArquivoLinhaPorLinha();
-        System.out.println("Retorno da função: " + ler.getLinhas());
+        System.out.println("Retorno da Linhas lidas " + ler.getLinhas());
         
         //Pegando caracters do arquivo
         TratarCompressao tc = new TratarCompressao();
         tc.setLinhas(ler.getLinhas());
         tc.pegarLinhaAtual();
-        System.out.println("Retorno da função: " + tc.getCaracters());
+//        System.out.println("Retorno de caracteres: " + tc.getCaracters());
         
         //Escrevendo em arquivos
         EscrituraArquivo ea = new EscrituraArquivo();
         ea.setNomeArquivo("saida.txt");
         int retornoArquivo = ea.verificaSeArquivoExiste();
-        System.out.println("Retorno do arquivo: " + retornoArquivo);
+//        System.out.println("Retorno do arquivo: " + retornoArquivo);
         ea.setParteString("Lucas Lima");
         ea.escreverEmArquivo();
         
@@ -46,20 +47,18 @@ public class LempelZiv {
         LeituraCaracterPorCaracter lCP = new LeituraCaracterPorCaracter();
         lCP.setLerArquivo(ler);
         String palavra = lCP.pegarParteString(3);
-        System.out.println(palavra);
+
         
-        //Escrever no dicionario com uma barra
-        for (int i = 0; i < palavra.length(); i++) {
-            if (palavra.charAt(palavra.length()-1) == 'a') {
-                System.out.println(palavra.charAt(palavra.length()-1));
-            }
-        }
-        ea.setNomeArquivo("dicionario.txt");
-        int retornoDicionario = ea.verificaSeArquivoExiste();
-        ea.setParteString(palavra + "|");
-        ea.escreverEmArquivo();
-        ea.escreverEmArquivo();
-        ea.escreverEmArquivo();
-        ea.escreverEmArquivo();
+        //Indexando string codificando e escrevendo no arquivo
+        Codificar c = new Codificar();
+        LeituraArquivo lerc = new LeituraArquivo();
+        lerc.setNomeArquivo("dicionario.txt");
+        int retornos = lerc.verificaSeArquivoExiste();
+        lerc.lerArquivoLinhaPorLinha();
+        c.setArrayLista(ler.getLinhas());
+        c.indexarStrings();
+        System.out.println("Texto Indexado: " + c.getIndex());
+        c.codificarStrings();
+        System.out.println("Dicionario: " + c.getCodigicacao());
     }
 }

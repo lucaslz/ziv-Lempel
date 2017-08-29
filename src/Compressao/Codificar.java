@@ -16,7 +16,7 @@ public class Codificar {
     public ArrayList<String> index = new ArrayList();
     public ArrayList<String> codigicacao = new ArrayList();
     public ArrayList<String> arrayLista = new ArrayList();
-    public ArrayList<String> auxiliaDicionario = new ArrayList();
+    public ArrayList<String> arrayAIndexar = new ArrayList();
 
     public Codificar() {
 
@@ -46,48 +46,62 @@ public class Codificar {
         this.arrayLista = arrayLista;
     }
 
-    public ArrayList<String> getAuxiliaDicionario() {
-        return auxiliaDicionario;
+    public ArrayList<String> getArrayAIndexar() {
+        return arrayAIndexar;
     }
 
-    public void setAuxiliaDicionario(ArrayList<String> auxiliaDicionario) {
-        this.auxiliaDicionario = auxiliaDicionario;
+    public void setArrayAIndexar(ArrayList<String> arrayAIndexar) {
+        this.arrayAIndexar = arrayAIndexar;
     }
     
-    public void indexarStrings() {
+    public void particionarListaStrings() {
         for (int i = 0; i < this.getArrayLista().size(); i++) {
             for (int j = 0; j < this.getArrayLista().get(i).length(); j++) {
-                if (this.getArrayLista().get(i).substring(0, j).charAt(this.getArrayLista().get(i).length() - 1) == '|') {
-                    this.getIndex().add(this.getArrayLista().get(i).substring(0, j));
+                 String palavra = this.getArrayLista().get(i).substring(0, j);
+                 for (int k = 0; k < 10; k++) {
+                    
                 }
             }
         }
     }
-
-    public void codificarStrings() {
-        String palavra;
-        for (int i = 0; i < this.getIndex().size(); i++) {
-            for (int j = 0; j < this.getIndex().get(i).length(); j++) {
-                int tamanho = this.getIndex().get(i).length() - 1;
-                if (i == 0) {
-                    if ("|".equals(this.getIndex().get(i).substring(0, tamanho))) {
-                        palavra = this.getIndex().get(i).substring(0, tamanho - 1);
-                        this.auxiliaDicionario.add(palavra);
-                    }
-                }
-                if (this.getIndex().get(i).substring(0, tamanho).equals("|")) {
-                    palavra = this.getIndex().get(i);
-                    for (int k = 0; k < palavra.length(); k++) {
-                        for (int l = 0; l < this.getAuxiliaDicionario().size(); l++) {
-                            if (this.getAuxiliaDicionario().get(l).equals(palavra.substring(0, k))) {
-//                                if (palavra.substring(0, k + 2)) {
-                                    
-//                                }
-                            }
-                        }
-                    }
+    
+    public void indexarStrings() {
+        int inicio = 0;
+        for (int i = 0; i < this.getArrayLista().size(); i++) {
+            for (int j = 0; j < this.getArrayLista().get(i).length(); j++) {
+                String palavraCerta = this.getArrayLista().get(i).substring(inicio, j);
+                String palavraTeste = this.getArrayLista().get(i).substring(inicio, j + 1);
+                if (palavraTeste.indexOf("|") != -1) {
+                    this.getIndex().add(palavraCerta);
+                    inicio = j + 1;
                 }
             }
+        }
+    }
+    
+    public int verificaSeContemString(String palavra) {
+         for (int i = 0; i < this.getIndex().size(); i++) {
+             if (this.getIndex().get(i).equals(palavra)) {
+                 return i+1;
+             }
+         }
+         return -1;
+    }
+
+    public void codificarStrings() {
+        for (int i = 0; i < this.getIndex().size(); i++) {
+            int total = this.getIndex().get(i).length();
+            String palavra = this.getIndex().get(i).substring(0, total - 1);
+            int retorno = verificaSeContemString(palavra);    
+            String palavraCodificada = "";
+            if (retorno != -1 && palavra.length() > 1) {
+                palavraCodificada = this.getIndex().get(i).substring(total -1, total);
+                this.getCodigicacao().add(retorno + palavraCodificada);
+            } else {
+                if (palavra.length() == 1) {
+                    this.getCodigicacao().add(0 + palavra);
+                }
+            } 
         }
     }
 }
