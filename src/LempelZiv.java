@@ -50,19 +50,19 @@ public class LempelZiv {
              * Eu vou inicializar o dicionario apenas com as Letras de A-Z
              * Isso é só para simplificar, mas sei que o correto é toda tabela ASCII
              */
-            ArrayList<String> dicionario = new ArrayList(255);
-            for(int i = 0; i < 26; i++)
+            ArrayList<String> dicionario = new ArrayList(500);
+            for(int i = 0; i < 127; i++)
             {
-                String temporaria = (char)(i+65)+"";
+                String temporaria = (char)(i)+""; //ou String temporaria = (char)(i+65)+"";
                 dicionario.add(temporaria);
             }
-            
+            System.out.println(dicionario);
             String X, Z, linha;
             
             while((linha = ler.readLine()) != null){
                 int indice = 0;
                 
-                while (indice < linha.length() - 1) {
+                while (indice < linha.length()) {
                     //X é o caracter atual
                     X = linha.charAt(indice) + ""; 
                     //Z é o proximo caracter
@@ -122,6 +122,12 @@ public class LempelZiv {
         }
     }
     
+    /**
+     * Descomprir arquivos comprimidos
+     * @param caminhoArquivoEntrada
+     * @param caminhoArquivoSaida
+     * @return false ou true
+     */
     public static boolean descomprimir(
         String caminhoArquivoEntrada,
         String caminhoArquivoSaida
@@ -149,10 +155,10 @@ public class LempelZiv {
              * Eu vou inicializar o dicionario apenas com as Letras de A-Z
              * Isso é só para simplificar, mas sei que o correto é toda tabela ASCII
              */
-            ArrayList<String> dicionario = new ArrayList(255);
-            for(int i = 0; i < 26; i++)
+            ArrayList<String> dicionario = new ArrayList(500);
+            for(int i = 0; i < 127; i++)
             {
-                String temporaria = (char)(i+65)+"";
+                String temporaria = (char)(i)+""; //ou String temporaria = (char)(i+65)+"";
                 dicionario.add(temporaria);
             }
             
@@ -165,6 +171,7 @@ public class LempelZiv {
                 atual = entrada.nextLine();
                 //converte a entrada em array
                 linha = atual.split(" ");
+                System.out.println(linha[0]);
                 inteiros = new Integer[linha.length];
                 
                 //Percorre o array de inteiros
