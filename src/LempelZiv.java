@@ -16,9 +16,36 @@ public class LempelZiv {
         String arquivoDescomprimido = "Descomprimido.txt";
         String arquivoDescomprimido2 = "Descomprimido2.txt";
         String dicionario = "dicionario.txt";
-        comprimir(arquivoDeEntrada, arquivoComprimido);
-//        descomprimir(arquivoComprimido, arquivoDescomprimido);
-        descomprimirArquivo(arquivoComprimido, arquivoDescomprimido2, dicionario);
+        Scanner entrada = new Scanner(System.in);
+        boolean sair = false;
+
+        while (sair == false) {
+            System.out.println("\n\n\n\n\n\n\n#####################################################################\n");
+            System.out.println("[0] - Sair do sistema.\n");
+            System.out.println("[1] - Comprimir arquivo.\n");
+            System.out.println("[2] - Descomprimir sem Dicionario.\n");
+            System.out.println("[3] - Descomprimir com Dicionario.\n");
+            System.out.print("Digite a opção desejada: ");
+            int opcao = entrada.nextInt();
+
+            switch (opcao) {
+                case 1:
+                    comprimir(arquivoDeEntrada, arquivoComprimido);
+                    break;
+                case 2:
+                    descomprimir(arquivoComprimido, arquivoDescomprimido);
+                    break;
+                case 3:
+                    descomprimirArquivo(arquivoComprimido, arquivoDescomprimido2, dicionario);
+                    break;
+                case 0:
+                    System.out.println("\nObrigado por usar o sistema !!!");
+                    sair = true;
+                    break;
+                default:
+                    System.out.println("\nOpção invalida, Digite novamente!");
+            }
+        }
     }
 
     /**
@@ -92,7 +119,7 @@ public class LempelZiv {
             //escrevendo no dicionario
             escreverDicionario(dicionario);
             //Printando o dicionario na tela
-            System.out.println(dicionario.toString());
+            System.out.println("\n\n Dicionario: " + dicionario.toString());
             ler.close();
             escrever.close();
             return true;
@@ -228,9 +255,10 @@ public class LempelZiv {
             return false;
         }
     }
-    
+
     /**
      * Descomprimindo arquivo apartir de um dicionario e o arquivo de entrada
+     *
      * @param caminhoArquivoEntrada Arquivo comprimido
      * @param caminhoArquivoSaida Arquivo que sera gerado descomprimido
      * @param dicionarioArquivo Dicionario usado para descomprimir o arquivo
@@ -267,7 +295,7 @@ public class LempelZiv {
                 atual = entrada.nextLine();
                 linha = atual.split(" ");
             }
-            
+
             //Peparando arquivo de saida
             File arquivoSaida = new File(caminhoArquivoSaida);
             if (arquivoSaida.exists()) {
@@ -278,7 +306,7 @@ public class LempelZiv {
                 FileWriter fw = new FileWriter(arquivoSaida, false);
                 escrever = new BufferedWriter(fw);
             }
-            
+
             //Percorrendo o arquivo compactado
             for (int i = 0; i < linha.length; i++) {
                 Integer indice = Integer.parseInt(linha[i]);
