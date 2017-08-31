@@ -2,6 +2,8 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Programa para compressao e compactacao de dados LempelZiv
@@ -16,7 +18,7 @@ public class LempelZiv {
         String arquivoDescomprimido = "Descomprimido.txt";
         String dicionario = "dicionario.txt";
         comprimir(arquivoDeEntrada, arquivoComprimido);
-        descomprimir(arquivoComprimido, arquivoDescomprimido);
+        descomprimir(arquivoComprimido, arquivoDescomprimido, dicionario);
     }
     
     /**
@@ -56,7 +58,7 @@ public class LempelZiv {
                 String temporaria = (char)(i)+""; //ou String temporaria = (char)(i+65)+"";
                 dicionario.add(temporaria);
             }
-            System.out.println(dicionario);
+            
             String X, Z, linha;
             
             while((linha = ler.readLine()) != null){
@@ -88,6 +90,8 @@ public class LempelZiv {
                     escrever.write(dicionario.indexOf(X) + " ");
                 }
             }
+            //escrevendo no dicionario
+            escreverDicionario(dicionario);
             //Printando o dicionario na tela
             System.out.println(dicionario.toString());
             ler.close();
@@ -122,15 +126,37 @@ public class LempelZiv {
         }
     }
     
+    public static void escreverDicionario(ArrayList<String> dicionario)
+    {
+        //Chamando metodo para verificar se o arquivo existe
+        File arquivoDicionario = new File("dicionario.txt");
+        verificaArquivoCriado(arquivoDicionario);
+        try {
+            //Preparando arquivo de saida
+            BufferedWriter escrever = new BufferedWriter(new FileWriter(arquivoDicionario, false));
+            for (int i = 0; i < dicionario.size(); i++) {
+                escrever.write(dicionario.get(i).charAt(0));
+                escrever.newLine();
+                escrever.flush();
+            }
+            
+        } catch (IOException ex) {
+            System.out.println("Erro ao tentar escrever no arquivo.");
+        }
+        
+    }
+    
     /**
      * Descomprir arquivos comprimidos
      * @param caminhoArquivoEntrada
      * @param caminhoArquivoSaida
+     * @param dicionarioArquivo
      * @return false ou true
      */
     public static boolean descomprimir(
         String caminhoArquivoEntrada,
-        String caminhoArquivoSaida
+        String caminhoArquivoSaida,
+        String dicionarioArquivo
     )
     {
         BufferedReader ler;
@@ -171,7 +197,7 @@ public class LempelZiv {
                 atual = entrada.nextLine();
                 //converte a entrada em array
                 linha = atual.split(" ");
-                System.out.println(linha[0]);
+                //System.out.println("Tamanho: " + linha.length);
                 inteiros = new Integer[linha.length];
                 
                 //Percorre o array de inteiros
