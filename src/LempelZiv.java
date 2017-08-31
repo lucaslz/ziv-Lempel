@@ -228,7 +228,14 @@ public class LempelZiv {
             return false;
         }
     }
-
+    
+    /**
+     * Descomprimindo arquivo apartir de um dicionario e o arquivo de entrada
+     * @param caminhoArquivoEntrada Arquivo comprimido
+     * @param caminhoArquivoSaida Arquivo que sera gerado descomprimido
+     * @param dicionarioArquivo Dicionario usado para descomprimir o arquivo
+     * @return true ou false
+     */
     public static boolean descomprimirArquivo(
             String caminhoArquivoEntrada,
             String caminhoArquivoSaida,
