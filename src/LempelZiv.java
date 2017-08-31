@@ -68,6 +68,7 @@ public class LempelZiv {
             //Chamando metodo para verificar se o arquivo existe
             File arquivoEntrada = new File(caminhoArquivoEntrada);
             verificaArquivoCriado(arquivoEntrada);
+            verificaArquivoVazio(arquivoEntrada);
             //Preparando arquivo de entrada
             ler = new BufferedReader(new FileReader(arquivoEntrada));
 
@@ -124,10 +125,10 @@ public class LempelZiv {
             escrever.close();
             return true;
         } catch (FileNotFoundException e) {
-            System.out.println("Arquivo de entrada não encontrado. Fechando Execução.");
+            System.err.println("\nArquivo de entrada não encontrado. Fechando Execução.");
             return false;
         } catch (IOException e) {
-            System.out.println("Erro ao criar arquivo de saida. Fechando o Programa.");
+            System.err.println("\nO arquivo esta vazio.");
             return false;
         }
     }
@@ -143,8 +144,15 @@ public class LempelZiv {
             try {
                 arquivo.createNewFile();
             } catch (IOException ex) {
-                System.out.println("Erro ao criar arquivo.");
+                System.err.println("\nErro ao criar arquivo.");
             }
+        }
+    }
+    
+    public static void verificaArquivoVazio(File arquivo) throws EOFException
+    {
+        if (arquivo.length() == 0) {
+            throw new EOFException("\nO arquivo esta vazio.");
         }
     }
 
@@ -161,7 +169,7 @@ public class LempelZiv {
                 escrever.flush();
             }
         } catch (IOException ex) {
-            System.out.println("Erro ao tentar escrever no arquivo.");
+            System.err.println("\nErro ao tentar escrever no arquivo.");
         }
 
     }
@@ -248,10 +256,10 @@ public class LempelZiv {
             escrever.close();
             return true;
         } catch (FileNotFoundException e) {
-            System.out.println("Arquivo de entrada não encontrado. Fechando Execução.");
+            System.err.println("\nArquivo de entrada não encontrado. Fechando Execução.");
             return false;
         } catch (IOException e) {
-            System.out.println("Erro ao criar arquivo de saida. Fechando Execução.");
+            System.err.println("\nErro ao criar arquivo de saida. Fechando Execução.");
             return false;
         }
     }
@@ -318,10 +326,10 @@ public class LempelZiv {
             escrever.close();
             return true;
         } catch (FileNotFoundException e) {
-            System.out.println("Arquivo de entrada não encontrado. Fechando Execução.");
+            System.err.println("\nArquivo de entrada não encontrado. Fechando Execução.");
             return false;
         } catch (IOException e) {
-            System.out.println("Erro ao criar arquivo de saida. Fechando Execução.");
+            System.err.println("\nErro ao criar arquivo de saida. Fechando Execução.");
             return false;
         }
     }
