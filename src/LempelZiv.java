@@ -17,7 +17,7 @@ public class LempelZiv {
         String arquivoDescomprimido2 = "Descomprimido2.txt";
         String dicionario = "dicionario.txt";
         comprimir(arquivoDeEntrada, arquivoComprimido);
-        descomprimir(arquivoComprimido, arquivoDescomprimido);
+//        descomprimir(arquivoComprimido, arquivoDescomprimido);
         descomprimirArquivo(arquivoComprimido, arquivoDescomprimido2, dicionario);
     }
 
@@ -85,8 +85,6 @@ public class LempelZiv {
                     }
                     //Adicionando string ao dicionario
                     dicionario.add(X + Z);
-                    System.out.println(X + " " + Z + "  Indice: " + dicionario.indexOf(X) + " " + X);
-                    System.out.println("Teste: " + dicionario.get(65));
                     //Escrever o indice na saida
                     escrever.write(dicionario.indexOf(X) + " ");
                 }
@@ -135,7 +133,6 @@ public class LempelZiv {
                 escrever.newLine();
                 escrever.flush();
             }
-            System.out.println(dicionario);
         } catch (IOException ex) {
             System.out.println("Erro ao tentar escrever no arquivo.");
         }
@@ -219,8 +216,6 @@ public class LempelZiv {
                 }
                 escrever.write("\n");
             }
-            //Escrevendo dicionario na saida
-            System.out.println(dicionario.toString());
             entrada.close();
             ler.close();
             escrever.close();
@@ -259,28 +254,34 @@ public class LempelZiv {
             //Lendo o arquivo comprimido
             File arquivoComprimido = new File(caminhoArquivoEntrada);
             FileReader fra = new FileReader(arquivoComprimido);
-            BufferedReader br = new BufferedReader(fr);
+            BufferedReader br = new BufferedReader(fra);
             entrada = new Scanner(br);
             while (entrada.hasNextLine()) {
                 atual = entrada.nextLine();
                 linha = atual.split(" ");
             }
-
+            
             //Peparando arquivo de saida
             File arquivoSaida = new File(caminhoArquivoSaida);
             if (arquivoSaida.exists()) {
                 FileWriter fw = new FileWriter(arquivoSaida, false);
                 escrever = new BufferedWriter(fw);
+            } else {
+                arquivoSaida.createNewFile();
+                FileWriter fw = new FileWriter(arquivoSaida, false);
+                escrever = new BufferedWriter(fw);
             }
-
-            //Percorrendo a linha e buscado a chave dos caracters para montar
-            //o arquivo de saida
-//            while (linha.) {                
-//                
-//            }
-//                escrever.write(dicionario.get(i));
-//                escrever.flush();
             
+            //Percorrendo o arquivo compactado
+            for (int i = 0; i < linha.length; i++) {
+                Integer indice = Integer.parseInt(linha[i]);
+                escrever.write(dicionario.get(indice));
+                escrever.flush();
+            }
+            entrada.close();
+            fr.close();
+            escrever.close();
+            return true;
         } catch (FileNotFoundException e) {
             System.out.println("Arquivo de entrada não encontrado. Fechando Execução.");
             return false;
@@ -288,7 +289,5 @@ public class LempelZiv {
             System.out.println("Erro ao criar arquivo de saida. Fechando Execução.");
             return false;
         }
-
-        return true;
     }
 }
